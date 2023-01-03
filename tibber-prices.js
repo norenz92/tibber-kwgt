@@ -2,6 +2,6 @@ const todayValues = data.data.viewer.homes[0].currentSubscription.priceInfo.toda
 const tomorrowValues = data.data.viewer.homes[0].currentSubscription.priceInfo.tomorrow.map((item) => item.total)
 
 return {
-	todayValues,
-	tomorrowValues
+	todayValues: todayValues.join(","),
+	tomorrowValues: tomorrowValues.join(",")
 }
