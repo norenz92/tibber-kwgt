@@ -1,0 +1,599 @@
+{
+  "clip_version": 1,
+  "clip_cut": [],
+  "clip_modules": [
+    {
+      "internal_type": "KomponentModule",
+      "globals_list": {
+        "barwidth": {
+          "index": 1,
+          "type": "NUMBER",
+          "title": "barWidth",
+          "min": 0,
+          "max": 720,
+          "value": 15.0
+        },
+        "barmargi": {
+          "index": 2,
+          "type": "NUMBER",
+          "title": "barMargi",
+          "min": 0,
+          "max": 720,
+          "value": 10.0
+        },
+        "data": {
+          "index": 3,
+          "type": "LIST",
+          "title": "data",
+          "entries": "$br(tasker, graph_data)$",
+          "toggles": 10,
+          "global_formula": "$br(tasker, graph_data)$"
+        },
+        "gheight": {
+          "index": 4,
+          "type": "NUMBER",
+          "title": "gHeight",
+          "min": 0,
+          "max": 720,
+          "value": 190.0
+        },
+        "gmax": {
+          "index": 5,
+          "type": "NUMBER",
+          "title": "gMax",
+          "min": 0,
+          "max": 720,
+          "toggles": 10,
+          "global_formula": "$fl(0,0,0, \"mu(max,\" + fl(0, tc(count, gv(data), #)-1, \"i+1\", \"tc(split, gv(data), #, i)\", \",\")+\")\")$"
+        },
+        "gmin": {
+          "index": 6,
+          "type": "NUMBER",
+          "title": "gMin",
+          "min": 0,
+          "max": 720,
+          "toggles": 10,
+          "global_formula": "$fl(0,0,0, \"mu(min,\" + fl(0, tc(count, gv(data), #)-1, \"i+1\", \"tc(split, gv(data), #, i)\", \",\")+\")\")$"
+        },
+        "scale": {
+          "index": 7,
+          "type": "NUMBER",
+          "title": "scale",
+          "min": 0,
+          "max": 720,
+          "toggles": 10
+        },
+        "gwidth": {
+          "index": 8,
+          "type": "NUMBER",
+          "title": "gWidth",
+          "min": 0,
+          "max": 720,
+          "value": 600.0
+        }
+      },
+      "viewgroup_items": [
+        {
+          "internal_type": "OverlapLayerModule",
+          "position_anchor": "BOTTOM",
+          "viewgroup_items": [
+            {
+              "internal_type": "StackLayerModule",
+              "internal_toggles": {
+                "config_margin": 100
+              },
+              "internal_globals": {
+                "config_margin": "barmargi"
+              },
+              "config_stacking": "HORIZONTAL_BOTTOM",
+              "config_margin": 5.0,
+              "position_anchor": "BOTTOM",
+              "viewgroup_items": [
+                {
+                  "internal_type": "StackLayerModule",
+                  "position_padding_left": 15.0,
+                  "position_padding_right": 15.0,
+                  "position_padding_bottom": 80.0,
+                  "viewgroup_items": [
+                    {
+                      "internal_type": "TextModule",
+                      "text_expression": "$mu(round(tc(split, gv(data), \"#\", df(h))),2)$:-",
+                      "text_family": "kfile://org.kustom.space.kwgt_000010/fonts/Roboto-Black.ttf",
+                      "text_size": 41.0,
+                      "paint_color": "#FF67A275"
+                    },
+                    {
+                      "internal_type": "TextModule",
+                      "text_expression": "H: $mu(round(gv(gMax)), 2)$:-",
+                      "text_size": 25.0
+                    },
+                    {
+                      "internal_type": "TextModule",
+                      "text_expression": "L: $mu(round(gv(gMin)), 2)$:-",
+                      "text_size": 25.0
+                    }
+                  ]
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 0) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 0, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0,
+                  "paint_color": "#FF67A275"
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 1) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 1, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 2) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 2, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 3) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 3, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 4) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 4, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 5) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 5, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 6) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 6, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 7) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 7, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 8) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 8, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 9) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 9, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 10) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 10, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 11) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 11, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 12) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 12, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 13) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 13, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 14) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 14, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 15) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 15, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 16) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 16, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 17) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 17, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 18) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 18, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 19) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 19, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 20) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 20, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 21) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 21, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 22) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 22, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                },
+                {
+                  "internal_type": "ShapeModule",
+                  "internal_toggles": {
+                    "shape_width": 100,
+                    "shape_height": 10,
+                    "paint_color": 10
+                  },
+                  "internal_formulas": {
+                    "shape_height": "$((tc(split, gv(data), \"#\", 23) - gv(gMin)) / (gv(gMax) - gv(gMin)) * (gv(gHeight) - (gv(gHeight)/4)) + (gv(gHeight)/4))$",
+                    "paint_color": "$if(df(h) \u003d 23, #FF67A275, #FFFFFF)$"
+                  },
+                  "internal_globals": {
+                    "shape_width": "barwidth"
+                  },
+                  "shape_type": "RECT",
+                  "shape_width": 40.0,
+                  "shape_height": 100.0,
+                  "shape_corners": 10.0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "internal_type": "ShapeModule",
+          "internal_toggles": {
+            "shape_height": 100,
+            "shape_width": 100
+          },
+          "internal_formulas": {
+            "shape_width": ""
+          },
+          "internal_globals": {
+            "shape_height": "gheight",
+            "shape_width": "gwidth"
+          },
+          "shape_type": "RECT",
+          "shape_width": 700.0,
+          "shape_height": 200.0,
+          "paint_color": "#00FFFFFF"
+        }
+      ]
+    }
+  ]
+}
